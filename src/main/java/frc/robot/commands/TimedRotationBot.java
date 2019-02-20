@@ -13,15 +13,14 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class R_motorBackTimed extends TimedCommand {
+public class TimedRotationBot extends TimedCommand {
   /**
    * Add your docs here.
    */
-  public R_motorBackTimed(double timeout) {
+  public TimedRotationBot(double timeout) {
     super(timeout);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.r_motor);
-   
+   requires(Robot.rotateShooter);
   }
 
   // Called just before this Command runs the first time
@@ -32,13 +31,13 @@ public class R_motorBackTimed extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.r_motor.Speed(.1);
+    Robot.rotateShooter.startRotating(-.3);
   }
 
   // Called once after timeout
   @Override
   protected void end() {
-    Robot.r_motor.stop();
+    Robot.rotateShooter.stopRotating();
   }
 
   // Called when another command which requires one or more of the same

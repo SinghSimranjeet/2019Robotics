@@ -6,8 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot.subsystems;
 
-
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -16,7 +15,7 @@ import frc.robot.RobotMap;
  */
 public class Motor2 extends Subsystem {
 
-  private final SpeedController motos = RobotMap.motor1;
+  public final SpeedControllerGroup motos = RobotMap.motors;
   
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -32,7 +31,7 @@ public class Motor2 extends Subsystem {
   public void stop(){
     motos.set(0);
   }
-
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

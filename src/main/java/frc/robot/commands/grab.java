@@ -7,22 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class R_motorStartTimed extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  public R_motorStartTimed(double timeout) {
-    super(timeout);
+public class grab extends Command {
+  public grab() {
+    requires(Robot.piston);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.r_motor);
-    setTimeout(timeout);
-
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -33,13 +25,19 @@ public class R_motorStartTimed extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.r_motor.invertSpeed(.1);
+    Robot.piston.grab();
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }                                                                                                                           
+                                                                                                                                                                                                                                                          
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.r_motor.stop();
+    Robot.piston.stop();
   }
 
   // Called when another command which requires one or more of the same

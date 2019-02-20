@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SolenoidOff extends Command {
-  public SolenoidOff() {
-    requires(Robot.pneumatics);
+public class mStop extends Command {
+  public mStop() {
+    requires(Robot.Motor2);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,7 +25,7 @@ public class SolenoidOff extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pneumatics.stopSolenoid();
+    Robot.Motor2.stop();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +37,7 @@ public class SolenoidOff extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.pneumatics.stopSolenoid();
+    Robot.Motor2.stop();
   }
 
   // Called when another command which requires one or more of the same

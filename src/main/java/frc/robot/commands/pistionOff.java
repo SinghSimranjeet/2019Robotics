@@ -10,10 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class R_motorStop extends Command {
-  public R_motorStop() {
+public class pistionOff extends Command {
+  public pistionOff() {
+    requires(Robot.piston);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.r_motor);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +25,7 @@ public class R_motorStop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.r_motor.stop();
+    Robot.piston.stop();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +37,7 @@ public class R_motorStop extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.r_motor.stop();
+    Robot.piston.stop();
   }
 
   // Called when another command which requires one or more of the same

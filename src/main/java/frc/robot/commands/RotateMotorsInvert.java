@@ -7,21 +7,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class BackTimed extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  public BackTimed(double timeout) {
-    super(timeout);
+public class RotateMotorsInvert extends Command {
+  public RotateMotorsInvert() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.motor2);
+   requires(Robot.rotateShooter);
+
   }
+
 
   // Called just before this Command runs the first time
   @Override
@@ -31,13 +26,28 @@ public class BackTimed extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.motor2.backward(-5);
+
+    //Robot.rotateShooter.invertRotating(-.3);
+    
+    /*double curr_time = System.currentTimeMillis();
+    double end_time = curr_time + 1000;
+    while(System.currentTimeMillis() < end_time)
+    {
+      Robot.rotateShooter.invertRotating(-.3);
+    } */
+    
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.motor2.stop();
+    Robot.rotateShooter.stopRotating();
   }
 
   // Called when another command which requires one or more of the same

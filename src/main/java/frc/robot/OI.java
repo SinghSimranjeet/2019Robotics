@@ -9,15 +9,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.R_motorBackTimed;
-import frc.robot.commands.R_motorStartTimed;
-import frc.robot.commands.R_motorStop;
-import frc.robot.commands.SolenoidBackward;
-import frc.robot.commands.SolenoidForward;
-import frc.robot.commands.SolenoidOff;
-import frc.robot.commands.motor2backward;
-import frc.robot.commands.motor2forward;
-import frc.robot.commands.motor2stop;
+import frc.robot.commands.RotateMotorsInvert;
+//import frc.robot.commands.SolenoidBackward;
+//import frc.robot.commands.SolenoidForward;
+//import frc.robot.commands.SolenoidOff;
+import frc.robot.commands.RotateMotorsStart;
+import frc.robot.commands.RotateMotorsStop;
+import frc.robot.commands.TimedRotation;
+import frc.robot.commands.grab;
+import frc.robot.commands.invertGrab;
+import frc.robot.commands.liftUp;
+import frc.robot.commands.pistionOff;
+import frc.robot.commands.reverseLift;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -52,7 +56,9 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public Joystick joystick1 = new Joystick(0);
+  public Joystick buttonBoard = new Joystick(1);
 
+  public JoystickButton one;
   public JoystickButton two;
   public JoystickButton three;
   public JoystickButton four;
@@ -64,33 +70,42 @@ public class OI {
   public JoystickButton ten;
 
 
+
+
   public OI()
 {
-  five = new JoystickButton(joystick1, 5);
-  five.whileHeld(new motor2forward());
-  five.whenReleased(new motor2stop());
+  one = new JoystickButton(buttonBoard, 1);
+  one.whileHeld(new RotateMotorsStart());
+  one.whenReleased(new RotateMotorsStop());
 
-  six = new JoystickButton(joystick1, 6);
-  six.whileHeld(new motor2backward());
-  six.whenReleased(new motor2stop());
+  two = new JoystickButton(buttonBoard, 2);
+  two.whileHeld(new RotateMotorsInvert());
+  two.whenReleased(new RotateMotorsStop());
 
-  ten = new JoystickButton(joystick1, 9);
-  ten.whenPressed(new SolenoidForward());
-  ten.whenReleased(new SolenoidOff());
+  three = new JoystickButton(buttonBoard, 3);
+  three.whenPressed(new TimedRotation(2));
+  three.whenReleased(new RotateMotorsStop());
 
-  nine = new JoystickButton(joystick1, 10);
-  nine.whenPressed(new SolenoidBackward());
-  nine.whenReleased(new SolenoidOff());
+  four = new JoystickButton(buttonBoard, 4);
+  four.whenPressed(new TimedRotation(2));
+  four.whenReleased(new RotateMotorsStop());
+  
 
-  seven = new JoystickButton(joystick1, 7);
-  seven.whenPressed(new R_motorStartTimed(1));
-  seven.whenReleased(new R_motorStop());
+  seven = new JoystickButton(buttonBoard, 7);
+  seven.whenPressed(new grab());
+  seven.whenReleased(new pistionOff());
 
-  eight = new JoystickButton(joystick1, 8);
-  eight.whenPressed(new R_motorBackTimed(1));
-  eight.whenReleased(new R_motorStop());
+  eight = new JoystickButton(buttonBoard, 8);
+  eight.whenPressed(new invertGrab());
+  eight.whenReleased(new pistionOff());
 
-
+  nine = new JoystickButton(buttonBoard, 9);
+  nine.whenPressed(new liftUp());
+  nine.whenReleased(new pistionOff());
+ 
+  ten = new JoystickButton(buttonBoard, 10);
+  ten.whenPressed(new reverseLift());
+  ten.whenReleased(new pistionOff());
 }
 
 

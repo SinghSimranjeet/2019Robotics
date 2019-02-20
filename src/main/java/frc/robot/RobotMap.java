@@ -7,11 +7,17 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.subsystems.Encoders;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -29,19 +35,45 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
-  
-  //public static SpeedController Shoot_motor = new  Spark(7);
+
+  // public static SpeedController Shoot_motor = new Spark(7);
 
   public static SpeedController motor2 = new Spark(4);
   public static SpeedController motor1 = new Spark(5);
   public static SpeedControllerGroup motors = new SpeedControllerGroup(motor1, motor2);
 
-  public static DoubleSolenoid dsolenoid = new DoubleSolenoid(6,7);
+  // public static DoubleSolenoid dsolenoid = new DoubleSolenoid(6,7);
 
-  public static SpeedController r_motor = new Spark(2);
-  public static SpeedController r_motor2 = new Spark(3);
+  public static SpeedController r_motor = new Spark(6);
+  public static SpeedController r_motor2 = new Spark(7);
   public static SpeedControllerGroup romotor = new SpeedControllerGroup(r_motor, r_motor2);
-  
+
+  // public static Counter R_AmMag = new Counter(0);
+  // public static Counter R_AmIndex = new Counter(1);
+
+  // public static Counter L_AmMag = new Counter(0);
+  // public static Counter L_AmIndex = new Counter(1);
+
+  public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
+
+  public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3);
+  public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1);
+  public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6);
+  public static Compressor com = new Compressor();
+
+  public void log() {
+    // SmartDashboard.putNumber("getLeftEncDistance",
+    // Encoders.getLeftEncDistance());
+    // SmartDashboard.putNumber("getLeftEncRate", Encoders.getLeftEncRate());
+
+  SmartDashboard.putNumber("CompressorCurrent", com.getCompressorCurrent());
+
+  SmartDashboard.putNumber("NavX Pitch", ahrs.getPitch());
+	SmartDashboard.putNumber("NavX Roll", ahrs.getRoll());
+  SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
+
+  }
+
   public static DifferentialDrive drive;
 
   public static SpeedController leftMotor1;
@@ -53,15 +85,21 @@ public class RobotMap {
   public static SpeedControllerGroup right;
 
   public static void init(){     
-    leftMotor1 = new Spark(6);
-    leftMotor2 = new Spark(8);
+    leftMotor1 = new Spark(0);
+    leftMotor2 = new Spark(1);
     left = new SpeedControllerGroup(leftMotor1, leftMotor2);
+  
 
-    rightMotor1 = new Spark(0);
-    rightMotor2 = new Spark(1);
+    rightMotor1 = new Spark(2);
+    rightMotor2 = new Spark(3);
     right = new SpeedControllerGroup(rightMotor1, rightMotor2);
 
-    drive = new DifferentialDrive(left, right);
+   drive = new DifferentialDrive(leftMotor1, rightMotor1);
+    drive.setExpiration(.5);
+   //drive.setSafetyEnabled(false);
+    
   }
+
+  
 
 }

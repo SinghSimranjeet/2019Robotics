@@ -13,9 +13,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
+//import frc.robot.subsystems.Encoders;
 import frc.robot.subsystems.Motor2;
-import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.R_motor;
+import frc.robot.subsystems.Pistons;
+import frc.robot.subsystems.RotateShooter;
+
+//import frc.robot.subsystems.Pneumatics;
+
 
 
 
@@ -27,29 +31,38 @@ import frc.robot.subsystems.R_motor;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static RobotMap robotMap;
+
   public static DriveTrain drivetrain;
-  public static Motor2 motor2;
-  public static R_motor r_motor;
-  public static Pneumatics pneumatics;
+  public static RotateShooter rotateShooter;
+ // public static Encoders encoders;
+  public static RobotMap robotMap;
   public static OI m_oi;
+  public static Motor2 Motor2;
+  public static Pistons piston;
+
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
   @Override
   public void robotInit() {
-    RobotMap.init();// super duper important!!!
-    drivetrain = new DriveTrain();
-    motor2 = new Motor2();
-    r_motor = new R_motor();
-    pneumatics = new Pneumatics();
-    m_oi = new OI();
+      RobotMap.init();// super duper important!!!
+    // Intilized subsystem classes before OI class.
+      drivetrain = new DriveTrain();
+      rotateShooter = new RotateShooter();
+      robotMap = new RobotMap();
+      Motor2 = new Motor2();
+      piston = new Pistons();
+     // encoders = new Encoders();
+
+      m_oi = new OI();
+
+
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+
+    
   }
 
   /**
@@ -62,6 +75,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+    robotMap.log();
+    
   }
 
   /**
@@ -138,5 +154,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    
   }
 }

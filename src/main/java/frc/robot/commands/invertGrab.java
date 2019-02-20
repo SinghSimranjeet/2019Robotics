@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SolenoidForward extends Command {
-  public SolenoidForward() {
-    requires(Robot.pneumatics);
+public class invertGrab extends Command {
+  public invertGrab() {
+    requires(Robot.piston);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,7 +25,7 @@ public class SolenoidForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pneumatics.startSolenoid();
+    Robot.piston.reverseGrab();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +37,6 @@ public class SolenoidForward extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.pneumatics.stopSolenoid();
   }
 
   // Called when another command which requires one or more of the same

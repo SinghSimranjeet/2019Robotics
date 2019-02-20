@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class motor2forward extends Command {
-  public motor2forward() {
-    requires(Robot.motor2);
+public class reverseLift extends Command {
+  public reverseLift() {
+    requires(Robot.piston);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,7 +25,7 @@ public class motor2forward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.motor2.start(.75);
+    Robot.piston.invertLift();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +37,7 @@ public class motor2forward extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.motor2.stop();
+    Robot.piston.stop();
   }
 
   // Called when another command which requires one or more of the same

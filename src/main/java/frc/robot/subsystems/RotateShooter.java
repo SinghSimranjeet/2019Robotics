@@ -7,32 +7,39 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class Pneumatics extends Subsystem {
-  private final DoubleSolenoid solenoid1 = RobotMap.dsolenoid;
+public class RotateShooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public void startSolenoid () {
-		solenoid1.set(DoubleSolenoid.Value.kForward);
-		
-  }
-  
-  public void reverseSolenoid() {
-    solenoid1.set(DoubleSolenoid.Value.kReverse);
+
+  private final SpeedControllerGroup romotors = RobotMap.romotor;
+
+  public void startRotating(double i){
+      romotors.set(i);
   }
 
-  public void stopSolenoid(){
-    solenoid1.set(DoubleSolenoid.Value.kOff);
+  public void invertRotating(double i){
+    //romotors.setInverted(fa);
+    romotors.set(i);
   }
+
+  public void stopRotating(){
+    romotors.stopMotor();
+    romotors.set(0);
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
+
+
 }
