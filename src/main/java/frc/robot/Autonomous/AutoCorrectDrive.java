@@ -5,15 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.Autonomous;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class RotateMotorsStop extends Command {
-  public RotateMotorsStop() {
+/**
+ * Add your docs here.
+ */
+public class AutoCorrectDrive extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public AutoCorrectDrive(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.rotateShooter);
+  requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -24,19 +31,13 @@ public class RotateMotorsStop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.rotateShooter.stopRotating();
+    Robot.drivetrain.correctWhileDriving();
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
-    Robot.rotateShooter.stopRotating();
+    Robot.drivetrain.stopDrive();
   }
 
   // Called when another command which requires one or more of the same

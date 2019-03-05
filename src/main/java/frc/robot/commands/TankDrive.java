@@ -25,8 +25,9 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   // Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick1);
-    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick1);
+    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick1.getY(),Robot.m_oi.joystick1.getZ());
+   // Robot.drivetrain._drive.arcadeDrive(Robot.m_oi.joystick1.getY(), Robot.m_oi.joystick1.getZ());
+    //Robot.drivetrain._drive.tankDrive(Robot.m_oi.joystick1.getY(), Robot.m_oi.joystick1.getX());
   }
 
   // Make this return true when this Command no longer needs to run execute()

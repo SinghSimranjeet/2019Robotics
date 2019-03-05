@@ -27,7 +27,7 @@ public class LimeLight {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if(getPipelineLatency()==0.0){
+            if(tl_getPipelineLatency()==0.0){
                 isConnected = false;
             }else{
                 isConnected = true;
@@ -72,7 +72,7 @@ public class LimeLight {
      * tv   Whether the limelight has any valid targets (0 or 1)
      * @return
      */
-    public boolean getIsTargetFound() {
+    public boolean tv_getIsTargetFound() {
         NetworkTableEntry tv = m_table.getEntry("tv");
         double v = tv.getDouble(0);
         if (v == 0.0f){
@@ -85,7 +85,7 @@ public class LimeLight {
      * tx Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
      * @return
      */
-    public double getdegRotationToTarget() {
+    public double tx_getdegRotationToTarget() {
         NetworkTableEntry tx = m_table.getEntry("tx");
         double x = tx.getDouble(0.0);
         return x;
@@ -94,7 +94,7 @@ public class LimeLight {
      * ty Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
      * @return 
      */
-    public double getdegVerticalToTarget() {
+    public double ty_getdegVerticalToTarget() {
         NetworkTableEntry ty = m_table.getEntry("ty");
         double y = ty.getDouble(0.0);
         return y;
@@ -103,7 +103,7 @@ public class LimeLight {
      * ta Target Area (0% of image to 100% of image)
      * @return
      */
-    public double getTargetArea() {
+    public double ta_getTargetArea() {
         NetworkTableEntry ta = m_table.getEntry("ta");
         double a = ta.getDouble(0.0);
         return a;
@@ -112,7 +112,7 @@ public class LimeLight {
      * ts Skew or rotation (-90 degrees to 0 degrees)
      * @return
      */
-    public double getSkew_Rotation() {
+    public double ts_getSkew_Rotation() {
         NetworkTableEntry ts = m_table.getEntry("ts");
         double s = ts.getDouble(0.0);
         return s;
@@ -121,7 +121,7 @@ public class LimeLight {
      * tl The pipeline’s latency contribution (ms) Add at least 11ms for image capture latency.
      * @return
      */
-    public double getPipelineLatency() {
+    public double tl_getPipelineLatency() {
         NetworkTableEntry tl = m_table.getEntry("tl");
         double l = tl.getDouble(0.0);
         return l;

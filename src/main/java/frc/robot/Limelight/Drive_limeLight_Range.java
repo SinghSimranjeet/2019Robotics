@@ -27,8 +27,8 @@ public class Drive_limeLight_Range extends Command {
   @Override
   protected void execute() {
 
-    double ty = Robot.drivetrain.gLimeLight().getdegVerticalToTarget();
-    boolean targetFound = Robot.drivetrain.gLimeLight().getIsTargetFound();
+    double ty = Robot.drivetrain.gLimeLight().ty_getdegVerticalToTarget();
+    boolean targetFound = Robot.drivetrain.gLimeLight().tv_getIsTargetFound();
 
     if (targetFound) {
       m_moveValue = ty * kpDistance;

@@ -9,18 +9,30 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Autonomous.AutoCorrectDrive;
+import frc.robot.commands.DownP_back;
+import frc.robot.commands.DownP_push;
+import frc.robot.commands.PushCargo;
 import frc.robot.commands.RotateMotorsInvert;
 //import frc.robot.commands.SolenoidBackward;
 //import frc.robot.commands.SolenoidForward;
 //import frc.robot.commands.SolenoidOff;
 import frc.robot.commands.RotateMotorsStart;
 import frc.robot.commands.RotateMotorsStop;
+import frc.robot.commands.TestDriveRuns;
+import frc.robot.commands.TestDriveStop;
 import frc.robot.commands.TimedRotation;
+import frc.robot.commands.TimedRotationBot;
+import frc.robot.commands.backCargo;
 import frc.robot.commands.grab;
 import frc.robot.commands.invertGrab;
 import frc.robot.commands.liftUp;
+import frc.robot.commands.mStart;
+import frc.robot.commands.mStop;
+import frc.robot.commands.mback;
 import frc.robot.commands.pistionOff;
 import frc.robot.commands.reverseLift;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 /**
@@ -69,40 +81,77 @@ public class OI {
   public JoystickButton nine;
   public JoystickButton ten;
 
+  public JoystickButton bumper_j1;
+  public JoystickButton button2_j1;
+  public JoystickButton random_but;
+
 
 
 
   public OI()
 {
+  /*
+  bumper_j1 = new JoystickButton(joystick1, 1);
+  bumper_j1.whileHeld(new TestDriveRuns());
+  bumper_j1.whenReleased(new TestDriveStop());
+  //bumper_j1.whenPressed(new DownP_push());
+  //bumper_j1.whenReleased(new pistionOff());
+
+  button2_j1 = new JoystickButton(joystick1, 2);
+  button2_j1.whenPressed(new DownP_back());
+  button2_j1.whenReleased(new pistionOff());
+/*
+  random_but = new JoystickButton(joystick1, 5);
+  random_but.whenPressed(new DownP_back());
+  random_but.whenReleased(new pistionOff());
+*/
+  
+  //Push cargo (Ball)
   one = new JoystickButton(buttonBoard, 1);
-  one.whileHeld(new RotateMotorsStart());
-  one.whenReleased(new RotateMotorsStop());
+  one.whileHeld(new PushCargo());
+  one.whenReleased(new pistionOff());
 
+  //Bring back the push cargo
   two = new JoystickButton(buttonBoard, 2);
-  two.whileHeld(new RotateMotorsInvert());
-  two.whenReleased(new RotateMotorsStop());
+  two.whileHeld(new backCargo());
+  two.whenReleased(new pistionOff());
 
+  //Roation motors going top
   three = new JoystickButton(buttonBoard, 3);
-  three.whenPressed(new TimedRotation(2));
+  three.whenPressed(new TimedRotation(1));
   three.whenReleased(new RotateMotorsStop());
 
+  //Roation motors going bot
   four = new JoystickButton(buttonBoard, 4);
-  four.whenPressed(new TimedRotation(2));
+  four.whenPressed(new TimedRotationBot(1));
   four.whenReleased(new RotateMotorsStop());
   
+  //shooting motor start
+  five = new JoystickButton(buttonBoard, 5);
+  five.whenPressed(new mStart());
+  five.whenReleased(new mStop());
 
+   //shooting motor stop
+  six = new JoystickButton(buttonBoard, 6);
+  six.whenPressed(new mback());
+  six.whenReleased(new mStop());
+  
+  //hatch panel push 
   seven = new JoystickButton(buttonBoard, 7);
   seven.whenPressed(new grab());
   seven.whenReleased(new pistionOff());
 
+  //hatch panel bring back
   eight = new JoystickButton(buttonBoard, 8);
-  eight.whenPressed(new invertGrab());
+  eight.whenPressed(new invertGrab() );
   eight.whenReleased(new pistionOff());
 
+  //lift hatch mech
   nine = new JoystickButton(buttonBoard, 9);
   nine.whenPressed(new liftUp());
   nine.whenReleased(new pistionOff());
  
+  //bring back hatch mech
   ten = new JoystickButton(buttonBoard, 10);
   ten.whenPressed(new reverseLift());
   ten.whenReleased(new pistionOff());

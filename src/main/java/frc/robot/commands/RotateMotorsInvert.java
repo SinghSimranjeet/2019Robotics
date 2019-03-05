@@ -27,7 +27,7 @@ public class RotateMotorsInvert extends Command {
   @Override
   protected void execute() {
 
-    //Robot.rotateShooter.invertRotating(-.3);
+    Robot.rotateShooter.invertRotating(-.3);
     
     /*double curr_time = System.currentTimeMillis();
     double end_time = curr_time + 1000;

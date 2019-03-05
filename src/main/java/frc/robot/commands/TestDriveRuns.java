@@ -10,10 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RotateMotorsStop extends Command {
-  public RotateMotorsStop() {
+public class TestDriveRuns extends Command {
+  public TestDriveRuns() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.rotateShooter);
+   requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +24,11 @@ public class RotateMotorsStop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.rotateShooter.stopRotating();
+   // Robot.drivetrain.setSpeed(Robot.m_oi.joystick1.getY(), Robot.m_oi.joystick1.getY());
+    //Robot.drivetrain._drive.tankDrive(Robot.m_oi.joystick1.getY(), Robot.m_oi.joystick1.getX());
+    //Robot.drivetrain._drive.arcadeDrive(.5, 0);
+    //Robot.drivetrain.correctWhileDriving();
+    Robot.drivetrain.roatewiththejoystick();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +40,7 @@ public class RotateMotorsStop extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.rotateShooter.stopRotating();
+    Robot.drivetrain.stopDrive();
   }
 
   // Called when another command which requires one or more of the same

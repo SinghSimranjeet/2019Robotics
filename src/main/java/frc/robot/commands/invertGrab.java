@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 public class invertGrab extends Command {
   public invertGrab() {
@@ -25,7 +26,30 @@ public class invertGrab extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.piston.reverseGrab();
+    //Robot.piston.reverseGrab();
+
+    Timer mytimer = new Timer();
+    mytimer.reset();
+    mytimer.start();
+
+    while(mytimer.get() <= 1)
+    {
+      Robot.piston.grab();
+      Robot.piston.shootPiston2();
+    }
+
+    while(mytimer.get() > 1 && mytimer.get() <= 1.01)
+    {
+      Robot.piston.lift();
+    }
+
+    while(mytimer.get() > 1.01 && mytimer.get() <= 1.02)  
+    {
+      Robot.piston.reverseGrab(); 
+      Robot.piston.shootPistonInvert2();
+    }
+
+    mytimer.stop();
   }
 
   // Make this return true when this Command no longer needs to run execute()

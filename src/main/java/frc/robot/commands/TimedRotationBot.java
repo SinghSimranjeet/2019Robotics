@@ -31,7 +31,7 @@ public class TimedRotationBot extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.rotateShooter.startRotating(-.3);
+    Robot.rotateShooter.startRotating(-.6);
   }
 
   // Called once after timeout

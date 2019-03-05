@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 //import frc.robot.subsystems.Encoders;
-import frc.robot.subsystems.RotateShooter;
 
 public class RotateMotorsStart extends Command {
   public RotateMotorsStart() {
@@ -28,48 +27,46 @@ public class RotateMotorsStart extends Command {
   @Override
   protected void execute() {
 
-    //Robot.rotateShooter.startRotating(0.3);
+    Robot.rotateShooter.startRotating(.3);
 
-    double curr_time = System.currentTimeMillis();
-    double end_time = curr_time + 1000;
-    while(System.currentTimeMillis() < end_time)
-    {
-      Robot.rotateShooter.startRotating(-0.3); 
+    // double curr_time = System.currentTimeMillis();
+    // double end_time = curr_time + 1000;
+    // while(System.currentTimeMillis() < end_time)
+    // {
+    //   Robot.rotateShooter.startRotating(-0.3); 
       
-      /*
-      if(Encoders.getLeftEncRate() == 5){
-        Robot.rotateShooter.stopRotating();
-        Robot.encoders.resetEnc();
-      }
-      */
-    }
+    //   /*
+    //   if(Encoders.getLeftEncRate() == 5){
+    //     Robot.rotateShooter.stopRotating();
+    //     Robot.encoders.resetEnc();
+    //   }
+    //   */
+    // }
 
-    double curr_time2 = System.currentTimeMillis();
-    double end_time2 = curr_time2 + 1000;
+    // double curr_time2 = System.currentTimeMillis();
+    // double end_time2 = curr_time2 + 1000;
 
-    double increment = 0;
-    double delay = 5000;
+    // double increment = 0;
+    // double delay = 5000;
 
-    for(int i = 0; i < delay; i++)
-    {
-      increment += curr_time2;
+    // for(int i = 0; i < delay; i++)
+    // {
+    //   increment += curr_time2;
 
-      while(increment >= curr_time2 && System.currentTimeMillis() < end_time2)
-      {
-        Robot.rotateShooter.invertRotating(.3);
+    //   while(increment >= curr_time2 && System.currentTimeMillis() < end_time2)
+    //   {
+    //     Robot.rotateShooter.invertRotating(.3);
 
-        /*
-        if(Encoders.getLeftEncRate() == 5){
-          Robot.rotateShooter.stopRotating();
-          Robot.encoders.resetEnc();
-        }
-        */
+    //     /*
+    //     if(Encoders.getLeftEncRate() == 5){
+    //       Robot.rotateShooter.stopRotating();
+    //       Robot.encoders.resetEnc();
+    //     }
+    //     */
 
-      }
-    }
-
+    //   }
+    // }
     
-
    
   }
 

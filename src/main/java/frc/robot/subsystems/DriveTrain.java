@@ -11,7 +11,9 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 //import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -30,15 +32,21 @@ import frc.robot.oi.limelightvision.limelight.frc.LimeLight;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public final SpeedControllerGroup rightSC;
-  public final SpeedControllerGroup leftSC;
-  public final DifferentialDrive _drive = RobotMap.drive;
+  private final SpeedControllerGroup rightSC;
+  private final SpeedControllerGroup leftSC;
+  private final DifferentialDrive _drive;
+
+  private Joystick tM_Joystick = new Joystick(0);
+
+  public LimeLight _limelight;
+  private boolean m_LimelightHasValidTarget = false;
+  private double m_LimelightDriveCommand = 0.0;
+  private double m_LimelightSteerCommand = 0.0;
 
   AHRS ahrs;
-  public LimeLight _limelight;
   boolean first_iteration, onTarget, direction;
 
- // private PIDController turnController;
+  private PIDController turnController;
   private double degrees;
 
   static final double kP = 0.03;
@@ -46,29 +54,34 @@ public class DriveTrain extends Subsystem {
   static final double kD = 0.00;
   static final double kF = 0.00;
 
-  static final double kToleranceDegrees = 2.0f;
+  static final double kToleranceDegrees = 100.0f;
 
   public DriveTrain() {
+   
     rightSC = RobotMap.right;
     leftSC = RobotMap.left;
+
+    _drive = RobotMap.drive;
     _drive.setExpiration(.5);
     _drive.setSafetyEnabled(false);
 
     // Code for connection of nav gyro.
     try {
-      ahrs = new AHRS(SPI.Port.kMXP);
+      ahrs = RobotMap.ahrs;
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
     }
-/*
-    turnController = new PIDController(kP, kI, kD, kF, ahrs, (PIDOutput) this);
+
+      turnController = new PIDController(kP, kI, kD, kF, ahrs, new TurnOutput() );
       turnController.setInputRange(-180.0f, 180.0f);
-      turnController.setOutputRange(-0.7, 0.7);
+      turnController.setOutputRange(-0.3, 0.3);
       turnController.setAbsoluteTolerance(kToleranceDegrees);
       turnController.setContinuous(true);
-*/
-    //LiveWindow.add(turnController);
-		//turnController.setName("DriveSystem", "RotateController");
+      turnController.disable();
+
+    LiveWindow.add(turnController);
+    turnController.setName("DriveSystem", "RotateController");
+    
 		
 		//next line does not do anything, probably because ahrs does not implement Sendable
 		LiveWindow.add(ahrs);  
@@ -101,7 +114,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public void _arcadeDrive(double j, double r){
-		_drive.arcadeDrive(j, r, false);
+		_drive.arcadeDrive(j, r);
     }
   public void _arcadeDrive(Joystick joy){
     _arcadeDrive(joy.getY(), joy.getZ());
@@ -109,6 +122,23 @@ public class DriveTrain extends Subsystem {
     
   public void stopDrive() {
     _drive.stopMotor();
+    leftSC.set(0);
+    rightSC.set(0);
+    }
+
+    public void setSpeed(double speed_L, double speed_R){//two input speed control
+      leftSC.set(speed_L);
+      rightSC.set(speed_R);
+      
+    }
+  
+    public void setSpeed(double speed){//one input speed control
+      setSpeed(speed, speed);
+    }
+
+    public void drive(double left, double right) {
+      leftSC.set(left);
+      rightSC.set(right);
     }
 
     public LimeLight gLimeLight(){
@@ -152,13 +182,13 @@ public class DriveTrain extends Subsystem {
 		onTarget = false;
 		if (direction) {// turn to the right
 			if (obtainYaw() < degrees + 1.5 && obtainYaw() > degrees - 1.5) {
-				_drive.tankDrive(0, 0);
+				_drive.tankDrive(0, 0); 
 				onTarget = true;
 			} else {
 				_drive.tankDrive(-0.23, 0.23);
 			}
 		} else if (!direction) {// turn to the left
-			double inverted = - degrees;
+			double inverted = -degrees;
 			if (obtainYaw() < inverted + 1.5 && obtainYaw() > inverted - 1.5) {
 				_drive.tankDrive(0, 0);
 				onTarget = true;
@@ -172,6 +202,7 @@ public class DriveTrain extends Subsystem {
 	 * Drive while maintaining the correct direction with the gyro on the NavX
 	 */
 	public void correctWhileDriving() {
+    /*
 		if (obtainYaw() > 0) {
 			if (obtainYaw() < 1.5 && obtainYaw() > 0) {
 				_drive.tankDrive(-0.23, -0.23);
@@ -188,14 +219,157 @@ public class DriveTrain extends Subsystem {
 			} else if (obtainYaw() < -4) {
 				_drive.tankDrive(-0.23, 0.23);
 			}
-		}
-	}
+    }
+    */
+    int tempYaw = 0;
+    double rotatetoangle = 0;
+    
+    if(obtainYaw() != rotatetoangle){
+
+      while(obtainYaw() > rotatetoangle){
+        tempYaw = (int) (obtainYaw() / 2);
+
+        turnController.setSetpoint(rotatetoangle);
+
+        if (tempYaw == 0) {
+          _drive.tankDrive(0.3, 0.3);
+        }
+      }
+
+      while(obtainYaw() < rotatetoangle){
+        tempYaw = (int) (obtainYaw() / 2);
+        turnController.setSetpoint(rotatetoangle);
+        
+        if (tempYaw == 0) {
+          _drive.tankDrive(0.3, 0.3);
+        }
+      }
+    }
+/*
+    while(obtainYaw() != rotatetoangle){
+
+      while(obtainYaw() > rotatetoangle){
+        tempYaw = (int) (obtainYaw() / 2);
+
+        turnController.setSetpoint(rotatetoangle);
+
+        if (tempYaw == 0) {
+          _drive.tankDrive(0.3, 0.3);
+        }
+      }
+
+      while(obtainYaw() < rotatetoangle){
+        tempYaw = (int) (obtainYaw() / 2);
+        turnController.setSetpoint(rotatetoangle);
+        
+        if (tempYaw == 0) {
+          _drive.tankDrive(0.3, 0.3);
+        }
+      }
+
+    }
+*/
+  }
+
+  int rotateToAngleRate;
+
+  public void roatewiththejoystick(){
+    /* While this button is held down, the robot is in
+        		 * "drive straight" mode.  Whatever direction the robot
+        		 * was heading when "drive straight" mode was entered
+        		 * will be maintained.  The average speed of both 
+        		 * joysticks is the magnitude of motion.
+        		 */
+        		if(!turnController.isEnabled()) {
+        			// Acquire current yaw angle, using this as the target angle.
+        			turnController.setSetpoint(ahrs.getYaw());
+        			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
+        			turnController.enable();
+        		}
+        		double magnitude = (tM_Joystick.getY() + tM_Joystick.getY()) / 2;
+        		double leftStickValue = magnitude + rotateToAngleRate;
+        		double rightStickValue = magnitude - rotateToAngleRate;
+        		_drive.tankDrive(leftStickValue,  rightStickValue);
+  }
+
 	public void resetGyro() {
 		ahrs.zeroYaw();
 		onTarget = false;
 		ahrs.resetDisplacement();
-	}
+  }
+
+  public void Update_Limelight_Tracking()
+  {
+        // These numbers must be tuned for your Robot!  Be careful!
+        final double STEER_K = 0.03;                    // how hard to turn toward the target
+        final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
+        final double DESIRED_TARGET_AREA = 13.0;        // Area of the target when the robot reaches the wall
+        final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
 
 
+        double toBoolean_tv_getIsTargetFound = _limelight.tv_getIsTargetFound() ? 1 : 0;
+
+        if (toBoolean_tv_getIsTargetFound < 1.0)
+        {
+          m_LimelightHasValidTarget = false;
+          m_LimelightDriveCommand = 0.0;
+          m_LimelightSteerCommand = 0.0;
+          return;
+        }
+
+        m_LimelightHasValidTarget = true;
+
+        // Start with proportional steering
+        double steer_cmd = _limelight.tx_getdegRotationToTarget() * STEER_K;
+        m_LimelightSteerCommand = steer_cmd;
+
+        // try to drive forward until the target area reaches our desired area
+        double drive_cmd = (DESIRED_TARGET_AREA - _limelight.ta_getTargetArea()) * DRIVE_K;
+
+        // don't let the robot drive too fast into the goal
+        if (drive_cmd > MAX_DRIVE)
+        {
+          drive_cmd = MAX_DRIVE;
+        }
+        m_LimelightDriveCommand = drive_cmd;
+  }
+
+  public void limelightAutoFind_Target(){
+
+    Update_Limelight_Tracking();
+
+    double steer = tM_Joystick.getX(Hand.kRight);
+    double drive = -tM_Joystick.getY(Hand.kLeft);
+    boolean auto = tM_Joystick.getRawButton(2);
+
+    steer *= 0.70;
+    drive *= 0.70;
+
+    if (auto)
+    {
+      if (m_LimelightHasValidTarget)
+      {
+        _drive.arcadeDrive(m_LimelightDriveCommand,m_LimelightSteerCommand);
+      }
+      else
+      {
+        _drive.arcadeDrive(0.0,0.0);
+      }
+    }
+    else
+    {
+      _drive.arcadeDrive(drive,steer);
+    }
+    
+  }
+
+  private class TurnOutput implements PIDOutput {
+    @Override
+    public void pidWrite(double output) {
+      drive(output, output);
+      }
+    }
+  
     
 }
+

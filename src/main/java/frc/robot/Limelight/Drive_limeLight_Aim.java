@@ -27,8 +27,8 @@ public class Drive_limeLight_Aim extends Command {
   @Override
   protected void execute() {
 
-    double tx = Robot.drivetrain.gLimeLight().getdegRotationToTarget();
-    boolean targetFound = Robot.drivetrain.gLimeLight().getIsTargetFound();
+    double tx = Robot.drivetrain.gLimeLight().tx_getdegRotationToTarget();
+    boolean targetFound = Robot.drivetrain.gLimeLight().tv_getIsTargetFound();
 
     if (targetFound) {
       m_moveValue = 0;

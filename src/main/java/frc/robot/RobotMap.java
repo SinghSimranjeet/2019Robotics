@@ -10,6 +10,7 @@ package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
@@ -48,17 +49,18 @@ public class RobotMap {
   public static SpeedController r_motor2 = new Spark(7);
   public static SpeedControllerGroup romotor = new SpeedControllerGroup(r_motor, r_motor2);
 
-  // public static Counter R_AmMag = new Counter(0);
-  // public static Counter R_AmIndex = new Counter(1);
-
-  // public static Counter L_AmMag = new Counter(0);
-  // public static Counter L_AmIndex = new Counter(1);
+public static Counter R_AmMag = new Counter(8);
+ public static Counter R_AmIndex = new Counter(9);
 
   public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3);
   public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1);
   public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6);
+  public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5);
+
+
+
   public static Compressor com = new Compressor();
 
   public void log() {
@@ -71,6 +73,13 @@ public class RobotMap {
   SmartDashboard.putNumber("NavX Pitch", ahrs.getPitch());
 	SmartDashboard.putNumber("NavX Roll", ahrs.getRoll());
   SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
+  SmartDashboard.putBoolean("NavX isConnected", ahrs.isConnected());
+  SmartDashboard.putBoolean("NavX isCalibrating", ahrs.isCalibrating());
+
+  SmartDashboard.putNumber("Encoder getRate", R_AmIndex.getRate());
+  SmartDashboard.putNumber("Encoder getPeriod", R_AmIndex.getPeriod());
+  SmartDashboard.putNumber("Encoder getDistance", R_AmIndex.getDistance());
+  SmartDashboard.putNumber("Encoder Counts", R_AmMag.get());
 
   }
 
@@ -95,7 +104,7 @@ public class RobotMap {
     right = new SpeedControllerGroup(rightMotor1, rightMotor2);
 
    drive = new DifferentialDrive(leftMotor1, rightMotor1);
-    drive.setExpiration(.5);
+   // drive.setExpiration(.5);
    //drive.setSafetyEnabled(false);
     
   }
