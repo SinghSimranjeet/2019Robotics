@@ -18,9 +18,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.oi.limelightvision.limelight.frc.LimeLight;
-//import frc.robot.subsystems.Encoders;
-import frc.robot.oi.limelightvision.limelight.frc.LimeLight;
+
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -82,14 +80,12 @@ public class RobotMap {
   SmartDashboard.putNumber("Encoder getDistance", R_AmIndex.getDistance());
   SmartDashboard.putNumber("Encoder Counts", R_AmMag.get());
 
-  /*
-  SmartDashboard.putBoolean("LimeLightConnected", Robot.drivetrain.gLimeLight().isConnected());
-  SmartDashboard.putBoolean("LimeLight IsTargetFound", Robot.drivetrain.gLimeLight().tv_getIsTargetFound());
-  SmartDashboard.putNumber("LimelightX",  Robot.drivetrain.gLimeLight().tx_getdegRotationToTarget());
-	SmartDashboard.putNumber("LimelightY",  Robot.drivetrain.gLimeLight().ty_getdegVerticalToTarget());
-	SmartDashboard.putNumber("LimelightArea",  Robot.drivetrain.gLimeLight().ta_getTargetArea());
+  SmartDashboard.putBoolean("LimeLight IsTargetFound", Robot.limelightAPI.tv_getIsTargetFound());
+  SmartDashboard.putNumber("LimelightX", Robot.limelightAPI.tx_getdegRotationToTarget());
+	SmartDashboard.putNumber("LimelightY",  Robot.limelightAPI.ty_getdegVerticalToTarget());
+	SmartDashboard.putNumber("LimelightArea",  Robot.limelightAPI.ta_getTargetArea());
 
-  */
+
   }
 
   public static DifferentialDrive drive;
