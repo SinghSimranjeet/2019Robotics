@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.oi.limelightvision.limelight.frc.LimeLight;
 //import frc.robot.subsystems.Encoders;
+import frc.robot.oi.limelightvision.limelight.frc.LimeLight;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -49,21 +51,20 @@ public class RobotMap {
   public static SpeedController r_motor2 = new Spark(7);
   public static SpeedControllerGroup romotor = new SpeedControllerGroup(r_motor, r_motor2);
 
-public static Counter R_AmMag = new Counter(8);
- public static Counter R_AmIndex = new Counter(9);
+  public static Counter R_AmMag = new Counter(8);
+  public static Counter R_AmIndex = new Counter(9);
 
   public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
-  public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3);
-  public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1);
-  public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6);
-  public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5);
-
-
+  public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3); // Hatch Panel1
+  public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1); // Hatched Mech
+  public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6); // Push Cargo
+  public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5); // Hatch Panel2
 
   public static Compressor com = new Compressor();
-
+  
   public void log() {
+
     // SmartDashboard.putNumber("getLeftEncDistance",
     // Encoders.getLeftEncDistance());
     // SmartDashboard.putNumber("getLeftEncRate", Encoders.getLeftEncRate());
@@ -81,6 +82,14 @@ public static Counter R_AmMag = new Counter(8);
   SmartDashboard.putNumber("Encoder getDistance", R_AmIndex.getDistance());
   SmartDashboard.putNumber("Encoder Counts", R_AmMag.get());
 
+  /*
+  SmartDashboard.putBoolean("LimeLightConnected", Robot.drivetrain.gLimeLight().isConnected());
+  SmartDashboard.putBoolean("LimeLight IsTargetFound", Robot.drivetrain.gLimeLight().tv_getIsTargetFound());
+  SmartDashboard.putNumber("LimelightX",  Robot.drivetrain.gLimeLight().tx_getdegRotationToTarget());
+	SmartDashboard.putNumber("LimelightY",  Robot.drivetrain.gLimeLight().ty_getdegVerticalToTarget());
+	SmartDashboard.putNumber("LimelightArea",  Robot.drivetrain.gLimeLight().ta_getTargetArea());
+
+  */
   }
 
   public static DifferentialDrive drive;

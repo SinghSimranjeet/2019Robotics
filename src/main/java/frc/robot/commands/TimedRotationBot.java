@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Add your docs here.
@@ -31,7 +32,23 @@ public class TimedRotationBot extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.rotateShooter.startRotating(-.6);
+    Timer mytimer = new Timer();
+    mytimer.reset();
+    mytimer.start();
+
+    while(mytimer.get() <= .75)
+    {
+      Robot.rotateShooter.startRotating(-.5);
+    }
+    
+    while(mytimer.get() > .75 && mytimer.get() <= 8)
+    {
+      Robot.rotateShooter.startRotating(-.3);
+
+
+    }
+    mytimer.stop();
+
   }
 
   // Called once after timeout

@@ -24,7 +24,8 @@ public class TestDriveStop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.stopDrive();
+    Robot.drivetrain.turnController.disable();
+    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick1.getY(),Robot.m_oi.joystick1.getZ());
 
   }
 

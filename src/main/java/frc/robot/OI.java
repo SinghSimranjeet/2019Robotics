@@ -90,12 +90,13 @@ public class OI {
 
   public OI()
 {
-  /*
+  
   bumper_j1 = new JoystickButton(joystick1, 1);
   bumper_j1.whileHeld(new TestDriveRuns());
   bumper_j1.whenReleased(new TestDriveStop());
   //bumper_j1.whenPressed(new DownP_push());
   //bumper_j1.whenReleased(new pistionOff());
+  
 
   button2_j1 = new JoystickButton(joystick1, 2);
   button2_j1.whenPressed(new DownP_back());
@@ -123,12 +124,12 @@ public class OI {
 
   //Roation motors going bot
   four = new JoystickButton(buttonBoard, 4);
-  four.whenPressed(new TimedRotationBot(1));
-  four.whenReleased(new RotateMotorsStop());
+  four.whenPressed(new PushCargo());
+  four.whenReleased(new pistionOff());
   
   //shooting motor start
   five = new JoystickButton(buttonBoard, 5);
-  five.whenPressed(new mStart());
+  five.whenPressed(new pistionOff());
   five.whenReleased(new mStop());
 
    //shooting motor stop
@@ -151,7 +152,7 @@ public class OI {
   nine.whenPressed(new liftUp());
   nine.whenReleased(new pistionOff());
  
-  //bring back hatch mech
+  //bring down hatch mech
   ten = new JoystickButton(buttonBoard, 10);
   ten.whenPressed(new reverseLift());
   ten.whenReleased(new pistionOff());

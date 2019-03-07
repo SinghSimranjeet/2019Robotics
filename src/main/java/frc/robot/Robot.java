@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LimelightAPI;
 //import frc.robot.subsystems.Encoders;
 import frc.robot.subsystems.Motor2;
 import frc.robot.subsystems.Pistons;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Motor2 Motor2;
   public static Pistons piston;
+  public static LimelightAPI limelightAPI;
 
 
   Command m_autonomousCommand;
@@ -52,6 +54,8 @@ public class Robot extends TimedRobot {
       robotMap = new RobotMap();
       Motor2 = new Motor2();
       piston = new Pistons();
+      limelightAPI = new LimelightAPI();
+
      // encoders = new Encoders();
 
       m_oi = new OI();
