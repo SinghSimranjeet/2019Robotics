@@ -9,30 +9,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.Autonomous.AutoCorrectDrive;
 import frc.robot.commands.DownP_back;
-import frc.robot.commands.DownP_push;
 import frc.robot.commands.PushCargo;
-import frc.robot.commands.RotateMotorsInvert;
-//import frc.robot.commands.SolenoidBackward;
-//import frc.robot.commands.SolenoidForward;
-//import frc.robot.commands.SolenoidOff;
-import frc.robot.commands.RotateMotorsStart;
 import frc.robot.commands.RotateMotorsStop;
 import frc.robot.commands.TestDriveRuns;
 import frc.robot.commands.TestDriveStop;
 import frc.robot.commands.TimedRotation;
-import frc.robot.commands.TimedRotationBot;
 import frc.robot.commands.backCargo;
 import frc.robot.commands.grab;
+import frc.robot.commands.intake;
 import frc.robot.commands.invertGrab;
 import frc.robot.commands.liftUp;
-import frc.robot.commands.mStart;
 import frc.robot.commands.mStop;
-import frc.robot.commands.mback;
 import frc.robot.commands.pistionOff;
 import frc.robot.commands.reverseLift;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 
 /**
@@ -84,6 +75,7 @@ public class OI {
   public JoystickButton bumper_j1;
   public JoystickButton button2_j1;
   public JoystickButton random_but;
+  public JoystickButton fiveJoy;
 
 
 
@@ -101,6 +93,12 @@ public class OI {
   button2_j1 = new JoystickButton(joystick1, 2);
   button2_j1.whenPressed(new DownP_back());
   button2_j1.whenReleased(new pistionOff());
+
+  fiveJoy = new JoystickButton(joystick1,5);
+  fiveJoy.whenPressed(new PushCargo());
+  fiveJoy.whenReleased(new backCargo());
+
+
 /*
   random_but = new JoystickButton(joystick1, 5);
   random_but.whenPressed(new DownP_back());
@@ -108,7 +106,7 @@ public class OI {
 */
   
   //Push cargo (Ball)
-  one = new JoystickButton(buttonBoard, 1);
+/*   one = new JoystickButton(buttonBoard, 1);
   one.whileHeld(new PushCargo());
   one.whenReleased(new pistionOff());
 
@@ -139,12 +137,12 @@ public class OI {
   
   //hatch panel push 
   seven = new JoystickButton(buttonBoard, 7);
-  seven.whenPressed(new grab());
+  seven.whenPressed(new invertGrab());
   seven.whenReleased(new pistionOff());
 
   //hatch panel bring back
   eight = new JoystickButton(buttonBoard, 8);
-  eight.whenPressed(new invertGrab() );
+  eight.whenPressed(new grab());
   eight.whenReleased(new pistionOff());
 
   //lift hatch mech
@@ -155,7 +153,37 @@ public class OI {
   //bring down hatch mech
   ten = new JoystickButton(buttonBoard, 10);
   ten.whenPressed(new reverseLift());
+  ten.whenReleased(new pistionOff()); */
+
+  one = new JoystickButton(buttonBoard, 1);
+  one.whenPressed(new liftUp());
+  //one.whenPressed(new frc.robot.PistonsCommands.AutoGrabHatched());
+  one.whenReleased(new pistionOff());
+
+  two = new JoystickButton(buttonBoard, 2);
+  two.whenPressed(new reverseLift());
+  two.whenReleased(new pistionOff());
+
+  three = new JoystickButton(buttonBoard, 3);
+  three.whenPressed(new TimedRotation(1));
+  three.whenReleased(new RotateMotorsStop());
+
+  four = new JoystickButton(buttonBoard, 4);
+  four.whenPressed(new intake());
+  four.whenReleased(new mStop());
+
+  seven = new JoystickButton(buttonBoard, 7);
+  seven.whenPressed(new grab());
+  seven.whenReleased(new pistionOff());
+
+  eight = new JoystickButton(buttonBoard, 8);
+  eight.whenPressed(new invertGrab());
+  eight.whenReleased(new pistionOff());
+
+  ten = new JoystickButton(buttonBoard, 10);
+  ten.whenPressed(new reverseLift());
   ten.whenReleased(new pistionOff());
+       
 }
 
 

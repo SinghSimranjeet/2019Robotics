@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -54,10 +55,10 @@ public class RobotMap {
 
   public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
-  public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3); // Hatch Panel1
-  public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1); // Hatched Mech
-  public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6); // Push Cargo
-  public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5); // Hatch Panel2
+  public static DoubleSolenoid dSolenoid1 = new DoubleSolenoid(7, 3); // rasing boi
+  public static DoubleSolenoid dSolenoid2 = new DoubleSolenoid(2, 1); // top grabby boi
+  public static DoubleSolenoid dSolenoid3 = new DoubleSolenoid(0, 6); // cargo boi
+  public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5); // bot grabby boi
 
   public static Compressor com = new Compressor();
   
@@ -83,9 +84,8 @@ public class RobotMap {
   SmartDashboard.putBoolean("LimeLight IsTargetFound", Robot.limelightAPI.tv_getIsTargetFound());
   SmartDashboard.putNumber("LimelightX", Robot.limelightAPI.tx_getdegRotationToTarget());
 	SmartDashboard.putNumber("LimelightY",  Robot.limelightAPI.ty_getdegVerticalToTarget());
-	SmartDashboard.putNumber("LimelightArea",  Robot.limelightAPI.ta_getTargetArea());
-
-
+  SmartDashboard.putNumber("LimelightArea",  Robot.limelightAPI.ta_getTargetArea());
+  
   }
 
   public static DifferentialDrive drive;

@@ -26,30 +26,46 @@ public class invertGrab extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.piston.reverseGrab();
 
-    Timer mytimer = new Timer();
-    mytimer.reset();
-    mytimer.start();
+    Timer igrab_timer = new Timer();
+    igrab_timer.start();
 
-    while(mytimer.get() <= 1)
+    while(igrab_timer.get() <= 1)
     {
       Robot.piston.grab();
-      Robot.piston.shootPiston2();
     }
 
-    while(mytimer.get() > 1 && mytimer.get() <= 1.01)
+    while(igrab_timer.get() > 1 && igrab_timer.get() <= 1.5);
     {
-      Robot.piston.lift();
+      Robot.piston.shootPiston2(); 
     }
 
-    while(mytimer.get() > 1.01 && mytimer.get() <= 1.02)  
+    Timer igrab_timer2 = new Timer();
+    igrab_timer2.start();
+
+    while(igrab_timer2.get() > 1 && igrab_timer2.get() <= 2)
     {
-      Robot.piston.reverseGrab(); 
+      Robot.piston.invertLift();
+    }
+    igrab_timer2.stop();
+
+      Robot.piston.reverseGrab();
       Robot.piston.shootPistonInvert2();
-    }
+     
+    
 
-    mytimer.stop();
+  /*
+
+    while(igrab_timer.get() > 1.5 && igrab_timer.get() <= 2)
+    {
+      Robot.piston.invertLift();
+      break;
+    }
+    igrab_timer.stop();
+
+    Robot.piston.reverseGrab();
+      Robot.piston.shootPistonInvert2();  
+      */
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.grab;
 
 /**
  * Add your docs here.
@@ -22,41 +21,90 @@ public class Pistons extends Subsystem {
   private final DoubleSolenoid d3 = RobotMap.dSolenoid3;
   private final DoubleSolenoid d4 = RobotMap.dSolenoid4;
 
-
+/**
+ *  Top Hatched piston push
+ * @return
+ * push 
+ */
   public void grab(){
     d1.set(DoubleSolenoid.Value.kForward);
   }
 
+  /**
+ * Top Hatched piston back
+ * @return
+ * back 
+ */
   public void reverseGrab(){
     d1.set(DoubleSolenoid.Value.kReverse);
   }
 
+  public void StopTopHa(){
+    d1.set(DoubleSolenoid.Value.kOff);
+  }
+
+  /**
+   * Limelight mount piston up
+   * @return
+   * Push
+   */
   public void lift(){
     d2.set(DoubleSolenoid.Value.kForward);
     //d3.set(DoubleSolenoid.Value.kForward);
   }
 
+   /**
+   * Limelight mount piston down
+   * @return
+   * Back
+   */
   public void invertLift(){
     d2.set(DoubleSolenoid.Value.kReverse);
     //d3.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public void shootPiston(){
-    d3.set(DoubleSolenoid.Value.kForward);
+  public void StopLL(){
+    d2.set(DoubleSolenoid.Value.kOff);
   }
-
-  public void shootPistonInvert(){ 
+  /**
+   *  pistons that's for the cargo back
+   * @return
+   * Back
+   */
+  public void shootPiston(){
     d3.set(DoubleSolenoid.Value.kReverse);
   }
 
+  /**
+   *pistons that's for the cargo push
+   * @return
+   * Push
+   */
+  public void shootPistonInvert(){ 
+    d3.set(DoubleSolenoid.Value.kForward);
+  }
+
+  /**
+   * Bot Hatched piston push
+   * @return
+   * Push
+   */
   public void shootPiston2(){
     d4.set(DoubleSolenoid.Value.kForward);
   }
 
+    /**
+   * Bot Hatched piston back
+   * @return
+   * Back
+   */
   public void shootPistonInvert2(){ 
     d4.set(DoubleSolenoid.Value.kReverse);
   }
 
+  /**
+   * Turn off all the pistons
+   */
   public void stop(){
     d1.set(DoubleSolenoid.Value.kOff);
     d2.set(DoubleSolenoid.Value.kOff);

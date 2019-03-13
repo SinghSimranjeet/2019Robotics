@@ -5,16 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.PistonsCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class reverseLift extends Command {
-  public reverseLift() {
-    requires(Robot.piston);
+public class H_TopPistonBack extends Command {
+  public H_TopPistonBack() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+     requires(Robot.piston);
   }
 
   // Called just before this Command runs the first time
@@ -25,10 +24,7 @@ public class reverseLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.piston.reverseGrab(); 
-    Robot.piston.invertLift();
-    Robot.piston.shootPistonInvert2();
-    
+    Robot.piston.reverseGrab();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +36,7 @@ public class reverseLift extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.piston.stop();
+    Robot.piston.StopTopHa();
   }
 
   // Called when another command which requires one or more of the same

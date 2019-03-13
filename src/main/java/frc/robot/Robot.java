@@ -6,20 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode.PixelFormat;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightAPI;
 //import frc.robot.subsystems.Encoders;
 import frc.robot.subsystems.Motor2;
 import frc.robot.subsystems.Pistons;
 import frc.robot.subsystems.RotateShooter;
-
-//import frc.robot.subsystems.Pneumatics;
-
 
 
 
@@ -48,6 +48,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
       RobotMap.init();// super duper important!!!
+
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+      camera.setVideoMode(PixelFormat.kMJPEG, 640, 360, 30);
+
+    
+      
     // Intilized subsystem classes before OI class.
       drivetrain = new DriveTrain();
       rotateShooter = new RotateShooter();
@@ -60,12 +66,14 @@ public class Robot extends TimedRobot {
 
       m_oi = new OI();
 
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+      //m_chooser.addDefault("Test", new AutoGrabHatched());
+    //SmartDashboard.putData("Auto mode", new AutoGrabHatched());
+
+}
 
 
     
-  }
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use

@@ -7,9 +7,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
 
 
 public class grab extends Command {
@@ -31,48 +31,23 @@ public class grab extends Command {
   @Override
   protected void execute() {
 
-    Timer mytimer = new Timer();
-    mytimer.reset();
-    mytimer.start();
+    Timer grab_timer = new Timer();
+    grab_timer.start();
 
-    while(mytimer.get() <= 1)
+    while(grab_timer.get() <= 1)
     {
-      Robot.piston.grab();        
-     // Robot.piston.shootPiston2();
+      Robot.piston.grab();
     }
 
-    while(mytimer.get() > 1 && mytimer.get() <= 1.01)
+    while(grab_timer.get() > 1 && grab_timer.get() < 2)
     {
-      Robot.piston.invertLift();
+      Robot.piston.lift();
+      break;
     }
-
-    while(mytimer.get() > 1.01  && mytimer.get() <= 1.02)
-    {
-      Robot.piston.reverseGrab();
-     // Robot.piston.shootPistonInvert2();
-    }
-
-    mytimer.stop();
     
-    //delay(10);
-    //Robot.piston.invertLift();
-    //delay(5);
-    //Robot.piston.reverseGrab();
-    //double delay = 10000;
-    //double start_time = System.currentTimeMillis();
-    //double end_time = curr_time + 2;
-    /*while(start_time >= System.currentTimeMillis() - delay)
-    {
-      Robot.piston.invertLift();
-    }
-*/
-    /*double curr_time2 = System.currentTimeMillis();
-    double end_time2 = curr_time2 + 2000;
-    while(System.currentTimeMillis() < end_time2)
-    {
-      Robot.piston.reverseGrab();
-    }
-    */
+    grab_timer.stop();
+    Robot.piston.reverseGrab();  
+      
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -36,22 +36,21 @@ public class TimedRotation extends TimedCommand {
     Timer mytimer = new Timer();
     mytimer.reset();
     mytimer.start();
-
-    System.out.println(mytimer.getFPGATimestamp());
   
 
-    while(mytimer.get() <= 1.25)
+    while(mytimer.get() <= .41)
     {
-      Robot.rotateShooter.startRotating(.6);
+      Robot.rotateShooter.startRotating(.65);
     }
 
-    while(mytimer.get() > 1.25 && mytimer.get() <= 8)
+    while(mytimer.get() > .41 && mytimer.get() <= 8)
     {
-      Robot.rotateShooter.startRotating(.3);
+      Robot.rotateShooter.startRotating(.4);
+      Robot.piston.shootPistonInvert();
 
       while(mytimer.get() > 2 && mytimer.get() <= 6)
       {
-        Robot.Motor2.start(.5);
+        Robot.Motor2.start(-.45);
 
           while(mytimer.get() > 5 && mytimer.get() <= 7)
           {
@@ -60,6 +59,7 @@ public class TimedRotation extends TimedCommand {
             while(mytimer.get() > 7 && mytimer.get() <= 8)
             {
               Robot.piston.shootPistonInvert();
+              Robot.Motor2.backward(-.55);
               Robot.Motor2.stop();              
             }
           } 
