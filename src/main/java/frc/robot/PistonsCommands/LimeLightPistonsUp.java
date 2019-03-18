@@ -30,13 +30,13 @@ public class LimeLightPistonsUp extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.piston.StopLL();
+   Robot.piston.StopLL();
   }
 
   // Called when another command which requires one or more of the same

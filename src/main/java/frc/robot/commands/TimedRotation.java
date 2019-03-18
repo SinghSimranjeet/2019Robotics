@@ -36,14 +36,15 @@ public class TimedRotation extends TimedCommand {
     Timer mytimer = new Timer();
     mytimer.reset();
     mytimer.start();
+    
   
 
-    while(mytimer.get() <= .41)
+    while(mytimer.get() <= .48)
     {
       Robot.rotateShooter.startRotating(.65);
     }
 
-    while(mytimer.get() > .41 && mytimer.get() <= 8)
+    while(mytimer.get() > .48 && mytimer.get() <= 8)
     {
       Robot.rotateShooter.startRotating(.4);
       Robot.piston.shootPistonInvert();
@@ -60,7 +61,7 @@ public class TimedRotation extends TimedCommand {
             {
               Robot.piston.shootPistonInvert();
               Robot.Motor2.backward(-.55);
-              Robot.Motor2.stop();              
+              Robot.Motor2.stop();          
             }
           } 
       }        
@@ -69,8 +70,11 @@ public class TimedRotation extends TimedCommand {
   while(mytimer.get() > 8 && mytimer.get() <= 12)
     {
       Robot.rotateShooter.startRotating(.2);
+      
     }
+
    mytimer.stop();
+   
 
 }
 

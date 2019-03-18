@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.LimelightAPI.LedMode;
 
-public class invertGrab extends Command {
-  public invertGrab() {
-    requires(Robot.piston);
+public class Drive_limeLight_Reset extends Command {
+  public Drive_limeLight_Reset() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+     requires(Robot.drivetrain);
+
   }
 
   // Called just before this Command runs the first time
@@ -26,46 +26,9 @@ public class invertGrab extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.limelightAPI.setLEDMode(LedMode.kforceOn);
 
-    Timer igrab_timer = new Timer();
-    igrab_timer.start();
-
-    while(igrab_timer.get() <= 1)
-    {
-      Robot.piston.grab();
-    }
-
-    while(igrab_timer.get() > 1 && igrab_timer.get() <= 1.5);
-    {
-      Robot.piston.shootPiston2(); 
-    }
-
-    Timer igrab_timer2 = new Timer();
-    igrab_timer2.start();
-
-    while(igrab_timer2.get() > 1 && igrab_timer2.get() <= 2)
-    {
-      Robot.piston.invertLift();
-    }
-    igrab_timer2.stop();
-
-      Robot.piston.reverseGrab();
-      Robot.piston.shootPistonInvert2();
-     
-    
-
-  /*
-
-    while(igrab_timer.get() > 1.5 && igrab_timer.get() <= 2)
-    {
-      Robot.piston.invertLift();
-      break;
-    }
-    igrab_timer.stop();
-
-    Robot.piston.reverseGrab();
-      Robot.piston.shootPistonInvert2();  
-      */
+    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick2.getY(),Robot.m_oi.joystick2.getZ());
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -5,38 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.PistonsCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class H_TopPistonPush extends Command {
-  public H_TopPistonPush() {
+public class Flag extends Command {
+  //public boolean Cancel_stop;
+  public Flag() {
+  // boolean controller_val = a;
+    //boolean Cancel_stop = false;
+    //requires(Robot.piston);
     // Use requires() here to declare subsystem dependencies
-     requires(Robot.piston);
+    // eg. requires(chassis);
+  }
+
+  public boolean check(boolean b) {
+    boolean stop = b;
+    return stop;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    //Cancel_stop = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.piston.grab();
+    check(true);   
+    check(false); 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-  Robot.piston.StopTopHa();
+    //Cancel_stop = true;
   }
 
   // Called when another command which requires one or more of the same

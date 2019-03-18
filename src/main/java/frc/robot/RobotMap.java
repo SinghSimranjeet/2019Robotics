@@ -61,6 +61,8 @@ public class RobotMap {
   public static DoubleSolenoid dSolenoid4 = new DoubleSolenoid(4, 5); // bot grabby boi
 
   public static Compressor com = new Compressor();
+
+  
   
   public void log() {
 
@@ -85,6 +87,7 @@ public class RobotMap {
   SmartDashboard.putNumber("LimelightX", Robot.limelightAPI.tx_getdegRotationToTarget());
 	SmartDashboard.putNumber("LimelightY",  Robot.limelightAPI.ty_getdegVerticalToTarget());
   SmartDashboard.putNumber("LimelightArea",  Robot.limelightAPI.ta_getTargetArea());
+  SmartDashboard.putNumber("Distance",  Robot.limelight_range.Estimated_Distance());
   
   }
 
@@ -98,7 +101,8 @@ public class RobotMap {
   public static SpeedController rightMotor2;
   public static SpeedControllerGroup right;
 
-  public static void init(){     
+  public static void init(){ 
+    
     leftMotor1 = new Spark(0);
     leftMotor2 = new Spark(1);
     left = new SpeedControllerGroup(leftMotor1, leftMotor2);

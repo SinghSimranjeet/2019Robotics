@@ -9,20 +9,29 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DownP_back;
+import frc.robot.Limelight.Drive_limeLight_Aim;
+import frc.robot.Limelight.Drive_limeLight_Aim_n_Range;
+import frc.robot.Limelight.Drive_limeLight_Range;
+import frc.robot.Limelight.Drive_limeLight_Reset;
+import frc.robot.PistonsCommands.AutoGrabHatched;
+import frc.robot.PistonsCommands.AutoReleaseHatched;
+import frc.robot.commands.Flag;
 import frc.robot.commands.PushCargo;
 import frc.robot.commands.RotateMotorsStop;
 import frc.robot.commands.TestDriveRuns;
 import frc.robot.commands.TestDriveStop;
 import frc.robot.commands.TimedRotation;
 import frc.robot.commands.backCargo;
-import frc.robot.commands.grab;
+import frc.robot.commands.grab_sequence;
 import frc.robot.commands.intake;
-import frc.robot.commands.invertGrab;
+import frc.robot.commands.invert_lift;
+import frc.robot.commands.kill_pistons;
+import frc.robot.commands.ledMode;
+import frc.robot.commands.ledOn;
 import frc.robot.commands.liftUp;
 import frc.robot.commands.mStop;
 import frc.robot.commands.pistionOff;
-import frc.robot.commands.reverseLift;
+import frc.robot.commands.reverse_grab_sequence;
 
 
 
@@ -58,8 +67,10 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
-  public Joystick joystick1 = new Joystick(0);
+  //public Joystick joyjoystick2 = new Joystick(0);
   public Joystick buttonBoard = new Joystick(1);
+  public Joystick joystick2 = new Joystick(0);
+
 
   public JoystickButton one;
   public JoystickButton two;
@@ -76,84 +87,49 @@ public class OI {
   public JoystickButton button2_j1;
   public JoystickButton random_but;
   public JoystickButton fiveJoy;
-
+  public JoystickButton button3_j1;
+  public JoystickButton button6_j1;
 
 
 
   public OI()
 {
   
-  bumper_j1 = new JoystickButton(joystick1, 1);
+  bumper_j1 = new JoystickButton(joystick2, 1);
   bumper_j1.whileHeld(new TestDriveRuns());
   bumper_j1.whenReleased(new TestDriveStop());
   //bumper_j1.whenPressed(new DownP_push());
   //bumper_j1.whenReleased(new pistionOff());
   
 
-  button2_j1 = new JoystickButton(joystick1, 2);
-  button2_j1.whenPressed(new DownP_back());
-  button2_j1.whenReleased(new pistionOff());
+  button2_j1 = new JoystickButton(joystick2, 2);
+  button2_j1.whenPressed(new ledOn());
+  //button2_j1.whenReleased(new TestDriveRuns());
 
-  fiveJoy = new JoystickButton(joystick1,5);
+  button3_j1 = new JoystickButton(joystick2, 3);
+  button3_j1.whenPressed(new ledMode());
+  //button3_j1.whenReleased(new Flag());
+
+  fiveJoy = new JoystickButton(joystick2,5);
   fiveJoy.whenPressed(new PushCargo());
   fiveJoy.whenReleased(new backCargo());
 
+/*
+  random_but = new JoystickButton(joystick2, 4);
+  random_but.whenPressed(new Drive_limeLight_Aim());
+  random_but.whenReleased(new Drive_limeLight_Reset());
+
+  button6_j1 = new JoystickButton(joystick2, 6);
+  button6_j1.whenPressed(new AutoReleaseHatched());
+  button6_j1.whenReleased(new pistionOff());
+  */
 
 /*
-  random_but = new JoystickButton(joystick1, 5);
+  random_but = new JoystickButtojoystick2, 5);
   random_but.whenPressed(new DownP_back());
   random_but.whenReleased(new pistionOff());
 */
-  
-  //Push cargo (Ball)
-/*   one = new JoystickButton(buttonBoard, 1);
-  one.whileHeld(new PushCargo());
-  one.whenReleased(new pistionOff());
 
-  //Bring back the push cargo
-  two = new JoystickButton(buttonBoard, 2);
-  two.whileHeld(new backCargo());
-  two.whenReleased(new pistionOff());
-
-  //Roation motors going top
-  three = new JoystickButton(buttonBoard, 3);
-  three.whenPressed(new TimedRotation(1));
-  three.whenReleased(new RotateMotorsStop());
-
-  //Roation motors going bot
-  four = new JoystickButton(buttonBoard, 4);
-  four.whenPressed(new PushCargo());
-  four.whenReleased(new pistionOff());
-  
-  //shooting motor start
-  five = new JoystickButton(buttonBoard, 5);
-  five.whenPressed(new pistionOff());
-  five.whenReleased(new mStop());
-
-   //shooting motor stop
-  six = new JoystickButton(buttonBoard, 6);
-  six.whenPressed(new mback());
-  six.whenReleased(new mStop());
-  
-  //hatch panel push 
-  seven = new JoystickButton(buttonBoard, 7);
-  seven.whenPressed(new invertGrab());
-  seven.whenReleased(new pistionOff());
-
-  //hatch panel bring back
-  eight = new JoystickButton(buttonBoard, 8);
-  eight.whenPressed(new grab());
-  eight.whenReleased(new pistionOff());
-
-  //lift hatch mech
-  nine = new JoystickButton(buttonBoard, 9);
-  nine.whenPressed(new liftUp());
-  nine.whenReleased(new pistionOff());
- 
-  //bring down hatch mech
-  ten = new JoystickButton(buttonBoard, 10);
-  ten.whenPressed(new reverseLift());
-  ten.whenReleased(new pistionOff()); */
 
   one = new JoystickButton(buttonBoard, 1);
   one.whenPressed(new liftUp());
@@ -161,7 +137,7 @@ public class OI {
   one.whenReleased(new pistionOff());
 
   two = new JoystickButton(buttonBoard, 2);
-  two.whenPressed(new reverseLift());
+  two.whenPressed(new invert_lift());
   two.whenReleased(new pistionOff());
 
   three = new JoystickButton(buttonBoard, 3);
@@ -173,27 +149,27 @@ public class OI {
   four.whenReleased(new mStop());
 
   seven = new JoystickButton(buttonBoard, 7);
-  seven.whenPressed(new grab());
+  seven.whenPressed(new grab_sequence());
   seven.whenReleased(new pistionOff());
 
   eight = new JoystickButton(buttonBoard, 8);
-  eight.whenPressed(new invertGrab());
+  eight.whenPressed(new reverse_grab_sequence());
   eight.whenReleased(new pistionOff());
 
   ten = new JoystickButton(buttonBoard, 10);
-  ten.whenPressed(new reverseLift());
+  ten.whenPressed(new kill_pistons());
   ten.whenReleased(new pistionOff());
        
 }
 
 
   public double getDriveLeftSpeed() {
-    return joystick1.getRawAxis(2);
+    return joystick2.getRawAxis(2);
   }
   public double getDriveRightSpeed() {
-    return joystick1.getRawAxis(1);
+    return joystick2.getRawAxis(1);
   }
-  public Joystick getJoystick1() {
-    return joystick1;
+  public Joystick getjoyjoystick2() {
+    return joystick2;
 }
 }

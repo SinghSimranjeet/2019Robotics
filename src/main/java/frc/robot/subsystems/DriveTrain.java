@@ -29,8 +29,8 @@ import frc.robot.commands.TankDrive;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final SpeedControllerGroup rightSC;
-  private final SpeedControllerGroup leftSC;
+  public final SpeedControllerGroup rightSC;
+  public final SpeedControllerGroup leftSC;
   private final DifferentialDrive _drive;
 
   private Joystick tM_Joystick = new Joystick(0);

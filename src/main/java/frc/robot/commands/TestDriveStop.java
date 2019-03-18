@@ -25,7 +25,7 @@ public class TestDriveStop extends Command {
   @Override
   protected void execute() {
     Robot.drivetrain.turnController.disable();
-    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick1.getY(),Robot.m_oi.joystick1.getZ());
+    Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick2.getY(),Robot.m_oi.joystick2.getZ());
 
   }
 

@@ -7,14 +7,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.LimelightAPI.LedMode;
 
-
-public class grab extends Command {
-  public grab() {
-    requires(Robot.piston);
+public class ledMode extends Command {
+  public ledMode() {
+    requires(Robot.limelightAPI);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,41 +24,20 @@ public class grab extends Command {
   }
 
   // Called repeatedly when this Command is scheduled to run
-  
-  //public static void delay(double seconds){}
-
   @Override
   protected void execute() {
-
-    Timer grab_timer = new Timer();
-    grab_timer.start();
-
-    while(grab_timer.get() <= 1)
-    {
-      Robot.piston.grab();
-    }
-
-    while(grab_timer.get() > 1 && grab_timer.get() < 2)
-    {
-      Robot.piston.lift();
-      break;
-    }
-    
-    grab_timer.stop();
-    Robot.piston.reverseGrab();  
-      
+    Robot.limelightAPI.setLEDMode(LedMode.kforceOff);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
-  }                                                                                                                           
-                                                                                                                                                                                                                                                          
+  }
+
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.piston.stop();
   }
 
   // Called when another command which requires one or more of the same

@@ -14,6 +14,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Limelight.Drive_limeLight_Aim_n_Range;
+import frc.robot.PistonsCommands.AutoGrabHatched;
+import frc.robot.commands.Flag;
+import frc.robot.commands.TimedRotation;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightAPI;
 //import frc.robot.subsystems.Encoders;
@@ -40,10 +45,12 @@ public class Robot extends TimedRobot {
   public static Motor2 Motor2;
   public static Pistons piston;
   public static LimelightAPI limelightAPI;
-
+  public static Drive_limeLight_Aim_n_Range limelight_range;
+  public static TimedRotation time_rotate;
+  public static Flag flag;
 
   Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> m_chooser;
 
   @Override
   public void robotInit() {
@@ -61,13 +68,17 @@ public class Robot extends TimedRobot {
       Motor2 = new Motor2();
       piston = new Pistons();
       limelightAPI = new LimelightAPI();
+      limelight_range = new Drive_limeLight_Aim_n_Range();
+      time_rotate = new TimedRotation(0);
+      flag = new Flag();
 
      // encoders = new Encoders();
 
       m_oi = new OI();
 
-      //m_chooser.addDefault("Test", new AutoGrabHatched());
-    //SmartDashboard.putData("Auto mode", new AutoGrabHatched());
+     m_chooser = new SendableChooser<>();
+    m_chooser.addDefault("Piston", new AutoGrabHatched());
+    SmartDashboard.putData("Auto mode", m_chooser);
 
 }
 
@@ -117,7 +128,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+
+    m_autonomousCommand = (Command) m_chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",

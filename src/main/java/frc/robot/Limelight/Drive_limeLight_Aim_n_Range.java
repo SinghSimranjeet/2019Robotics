@@ -2,6 +2,7 @@ package frc.robot.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.LimelightAPI.LedMode;
 
 /**
  *
@@ -27,6 +28,8 @@ public class Drive_limeLight_Aim_n_Range extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    Robot.limelightAPI.setLEDMode(LedMode.kforceOn);
 
     double tx = Robot.limelightAPI.tx_getdegRotationToTarget();
     double ty = Robot.limelightAPI.ty_getdegVerticalToTarget();
@@ -63,12 +66,14 @@ public class Drive_limeLight_Aim_n_Range extends Command {
       end();
     }
   
-    private double Estimated_Distance(double a2){
-      double h1 = 6.0;
-      double h2 = 36.0;
-      double a1 = 0.0;
-      return (h2-h1)/Math.tan(a1+a2);
-      
+    public double Estimated_Distance(){
+      double target_distance = Robot.limelightAPI.ta_getTargetArea();
+   /*    double h1 = 27.0;
+      double h2 = 35.5;
+      double a1 = 0;    //Robot.limelightAPI.tx_getdegRotationToTarget();
+      double a2 = Robot.limelightAPI.ty_getdegVerticalToTarget();
+      double target_distance = (h2-h1)/Math.tan(a1+a2); */
+      return target_distance;
     }
   }
   

@@ -27,7 +27,7 @@ public class LimelightAPI extends Subsystem {
   NetworkTableEntry tx = m_table.getEntry("tx");
   NetworkTableEntry ty = m_table.getEntry("ty");
   NetworkTableEntry ta = m_table.getEntry("ta");
-
+ 
 
 
   /**

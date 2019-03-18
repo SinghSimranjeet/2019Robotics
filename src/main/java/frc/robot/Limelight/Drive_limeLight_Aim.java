@@ -2,6 +2,8 @@ package frc.robot.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.LimelightAPI;
+import frc.robot.subsystems.LimelightAPI.LedMode;
 
 /**
  *
@@ -26,6 +28,8 @@ public class Drive_limeLight_Aim extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    Robot.limelightAPI.setLEDMode(LedMode.kforceOn);
 
     double tx = Robot.limelightAPI.tx_getdegRotationToTarget();
     boolean targetFound = Robot.limelightAPI.tv_getIsTargetFound();

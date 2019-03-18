@@ -5,15 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.PistonsCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class H_TopPistonPush extends Command {
-  public H_TopPistonPush() {
-    // Use requires() here to declare subsystem dependencies
-     requires(Robot.piston);
+public class reverse_grab extends Command {
+  public reverse_grab() {
+    requires(Robot.piston);
   }
 
   // Called just before this Command runs the first time
@@ -24,19 +23,18 @@ public class H_TopPistonPush extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.piston.grab();
+    Robot.piston.reverseGrab();    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-  Robot.piston.StopTopHa();
   }
 
   // Called when another command which requires one or more of the same

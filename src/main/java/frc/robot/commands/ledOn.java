@@ -9,10 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.LimelightAPI.LedMode;
 
-public class reverseLift extends Command {
-  public reverseLift() {
-    requires(Robot.piston);
+public class ledOn extends Command {
+  public ledOn() {
+    requires(Robot.limelightAPI);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,10 +26,7 @@ public class reverseLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.piston.reverseGrab(); 
-    Robot.piston.invertLift();
-    Robot.piston.shootPistonInvert2();
-    
+    Robot.limelightAPI.setLEDMode(LedMode.kforceOn);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +38,6 @@ public class reverseLift extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.piston.stop();
   }
 
   // Called when another command which requires one or more of the same
