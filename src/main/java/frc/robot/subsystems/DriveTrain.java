@@ -45,7 +45,7 @@ public class DriveTrain extends Subsystem {
   public PIDController turnController;
   private double degrees;
 
-  static final double kP = 0.03;
+  float kP = -.1f; //********************************.03
   static final double kI = 0.00;
   static final double kD = 0.00;
   static final double kF = 0.00;
@@ -70,7 +70,7 @@ public class DriveTrain extends Subsystem {
 
     turnController = new PIDController(kP, kI, kD, kF, ahrs, new TurnOutput());
     turnController.setInputRange(-180.0f, 180.0f);
-    turnController.setOutputRange(-0.7, 0.7);
+    turnController.setOutputRange(-1, 1);//***********************************-.7 && .7
     turnController.setAbsoluteTolerance(kToleranceDegrees);
     turnController.setContinuous(true);
     turnController.disable();
@@ -89,6 +89,16 @@ public class DriveTrain extends Subsystem {
       Timer.delay(0.3);
       ahrs.zeroYaw();
       first_iteration = false;
+    }
+
+    if(Robot.m_oi.button4_j -> whenPressed())
+    {
+      double tx = Robot.limelightAPI.tx_getdegRotationToTarget();
+      double adjust = kP * tx;
+      left_motors += adjust;
+      right_motors  -= adjust;
+
+      
     }
   }
 
@@ -111,6 +121,8 @@ public class DriveTrain extends Subsystem {
 
   public void _arcadeDrive(double j, double r) {
     _drive.arcadeDrive(j, r);
+    //AngularRotation();
+    //correctWhileDriving();
   }
 
   public void _arcadeDrive(Joystick joy) {

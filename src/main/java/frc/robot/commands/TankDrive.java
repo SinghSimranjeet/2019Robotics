@@ -27,18 +27,20 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-     Timer stopTimer = new Timer();
-     double distance1 = 0.40;
-     double distance2 = 0.51;
-     Robot.m_oi.button3_j1.whenPressed(new Flag());
-     
+    boolean arcadeDrive = true;
+     double distance1 = 0.2;
+     //double distance2 = 0.60;
+     //Robot.m_oi.button3_j1.whenPressed(new Flag());
 
-    if(((Robot.limelightAPI.ta_getTargetArea() >= distance1) && (Robot.limelightAPI.ta_getTargetArea() <= distance2))){
+    if(((Robot.limelightAPI.ta_getTargetArea() <= distance1) && (Robot.limelightAPI.ta_getTargetArea() > 0.01))){
+      Robot.drivetrain.setSpeed(.2, .2);
+      //Robot.drivetrain.leftSC.set(0);
+      //Robot.drivetrain.rightSC.set(0);      
+    }
+    else if((Robot.limelightAPI.ta_getTargetArea() <= .1) && (Robot.limelightAPI.ta_getTargetArea() > 0.01))
+    {
       Robot.drivetrain.leftSC.set(0);
-      Robot.drivetrain.rightSC.set(0);
-
-
-      
+      Robot.drivetrain.rightSC.set(0);   
     }
     else{
       Robot.drivetrain._arcadeDrive(Robot.m_oi.joystick2.getY(),Robot.m_oi.joystick2.getZ());

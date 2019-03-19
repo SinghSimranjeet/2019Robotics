@@ -9,13 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.Limelight.Drive_limeLight_Aim;
-import frc.robot.Limelight.Drive_limeLight_Aim_n_Range;
-import frc.robot.Limelight.Drive_limeLight_Range;
-import frc.robot.Limelight.Drive_limeLight_Reset;
-import frc.robot.PistonsCommands.AutoGrabHatched;
-import frc.robot.PistonsCommands.AutoReleaseHatched;
-import frc.robot.commands.Flag;
 import frc.robot.commands.PushCargo;
 import frc.robot.commands.RotateMotorsStop;
 import frc.robot.commands.TestDriveRuns;
@@ -88,6 +81,7 @@ public class OI {
   public JoystickButton random_but;
   public JoystickButton fiveJoy;
   public JoystickButton button3_j1;
+  public JoystickButton button4_j1;
   public JoystickButton button6_j1;
 
 
@@ -110,19 +104,23 @@ public class OI {
   button3_j1.whenPressed(new ledMode());
   //button3_j1.whenReleased(new Flag());
 
+  button4_j1 = new JoystickButton(joystick2, 4);
+  button4_j1.whenPressed(null);
+
   fiveJoy = new JoystickButton(joystick2,5);
   fiveJoy.whenPressed(new PushCargo());
   fiveJoy.whenReleased(new backCargo());
 
 /*
   random_but = new JoystickButton(joystick2, 4);
-  random_but.whenPressed(new Drive_limeLight_Aim());
-  random_but.whenReleased(new Drive_limeLight_Reset());
+    ` 
+  random_but.whenPressed(new AutoGrabHatched());
+  random_but.whenReleased(new pistionOff());
 
-  button6_j1 = new JoystickButton(joystick2, 6);
+  button6_j1 = new JoystickButton(joystick2, 5);
   button6_j1.whenPressed(new AutoReleaseHatched());
   button6_j1.whenReleased(new pistionOff());
-  */
+  
 
 /*
   random_but = new JoystickButtojoystick2, 5);
